@@ -1,0 +1,23 @@
+{
+    "name": "blue32a/ticket-price-modeling",
+    "description": "Ticket price modeling",
+    "type": "project",
+    "license": "proprietary",
+    "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "TicketPriceModeling\\": "src/",
+            "Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^8.0",
+        "phpunit/phpunit": "^9.5"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    }
+}
