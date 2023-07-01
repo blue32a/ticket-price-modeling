@@ -6,11 +6,11 @@
 
 ## クラス図
 
-![](https://github.com/blue32a/ticket-price-modeling/blob/main/docs/modeling.png?raw=true)
+![](./docs/diagram.png)
 
 ## 料金表
 
-![](https://github.com/blue32a/ticket-price-modeling/blob/main/docs/ticket_price.png?raw=true)
+![](./docs/ticket_price.png)
 
 ### 考慮しない要素
 
