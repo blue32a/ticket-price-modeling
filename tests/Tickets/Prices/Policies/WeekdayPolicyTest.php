@@ -73,7 +73,7 @@ class WeekdayPolicyTest extends TestCase
         $this->assertTrue((new Price(900))->equals($price));
     }
 
-    public function otherTypeDataProvider(): array
+    public static function otherTypeDataProvider(): array
     {
         return [
             [new CitizenMember(), 'シネマシティズン会員'],

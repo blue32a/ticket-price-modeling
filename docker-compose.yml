@@ -1,7 +1,13 @@
-version: '3'
+version: '3.8'
 
 services:
   php:
     build: ./docker/php
+    tty: true
     volumes:
-      - .:/var/www/html
+      - .:/var/www/html:delegated
+      - composer-vendor:/var/www/html/vendor
+    working_dir: /var/www/html
+
+volumes:
+  composer-vendor:

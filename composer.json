@@ -11,8 +11,8 @@
         }
     },
     "require": {
-        "php": "^8.0",
-        "phpunit/phpunit": "^9.5"
+        "php": "^8.2",
+        "phpunit/phpunit": "^10.1"
     },
     "config": {
         "sort-packages": true
