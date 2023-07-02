@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Tickets\Service;
 
+use DateTimeImmutable;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -284,27 +285,27 @@ class PriceCalculationTest extends TestCase
 
     private static function factoryPlayStartWeekdayNotLateShow(): PlayStartDateTime
     {
-        return new PlayStartDateTime('2023-07-03 10:00:00');
+        return new PlayStartDateTime(new DateTimeImmutable('2023-07-03 10:00:00'));
     }
 
     private static function factoryPlayStartWeekdayLateShow(): PlayStartDateTime
     {
-        return new PlayStartDateTime('2023-07-03 20:00:00');
+        return new PlayStartDateTime(new DateTimeImmutable('2023-07-03 20:00:00'));
     }
 
     private static function factoryPlayStartHolidayNotLateShow(): PlayStartDateTime
     {
-        return new PlayStartDateTime('2023-07-08 10:00:00');
+        return new PlayStartDateTime(new DateTimeImmutable('2023-07-08 10:00:00'));
     }
 
     private static function factoryPlayStartHolidayLateShow(): PlayStartDateTime
     {
-        return new PlayStartDateTime('2023-07-08 20:00:00');
+        return new PlayStartDateTime(new DateTimeImmutable('2023-07-08 20:00:00'));
     }
 
     private static function factoryPlayStartCinemaAnniversary(): PlayStartDateTime
     {
-        return new PlayStartDateTime('2023-07-01 20:00:00');
+        return new PlayStartDateTime(new DateTimeImmutable('2023-07-01 20:00:00'));
     }
 
     private static function factoryCustomerCinemaCitizenMember(): Customer

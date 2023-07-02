@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TicketPriceModeling\Schedules;
 
-use DateTime;
+use DateTimeImmutable;
 use DomainException;
 
 class PlayStartDateTime
@@ -12,17 +12,15 @@ class PlayStartDateTime
     private const START_HOUR = 8;
     private const RATE_SHOW_START_HOUR = 20;
 
-    private DateTime $value;
+    private readonly DateTimeImmutable $value;
 
-    public function __construct(string $datetime)
+    public function __construct(DateTimeImmutable $datetime)
     {
-        $value = new DateTime($datetime);
-
-        if ((int) $value->format('G') < self::START_HOUR) {
+        if ((int) $datetime->format('G') < self::START_HOUR) {
             throw new DomainException('Invalid value.');
         }
 
-        $this->value = $value;
+        $this->value = $datetime;
     }
 
     public function isWeekday(): bool
