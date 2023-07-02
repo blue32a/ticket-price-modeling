@@ -12,24 +12,13 @@ use TicketPriceModeling\Customers\Certificate\StudentCertificate;
 
 class Customer
 {
-    private Age $age;
-    private ?CitizenMemberCertificate $citizenMemberCertificate;
-    private ?DisabilityCertificate $disabilityCertificate;
-    private ?IdentificationCertificate $identificationCertificate;
-    private ?StudentCertificate $studentCertificate;
-
     public function __construct(
-        Age $age,
-        ?IdentificationCertificate $identificationCertificate,
-        ?CitizenMemberCertificate $citizenMemberCertificate,
-        ?StudentCertificate $studentCertificate,
-        ?DisabilityCertificate $disabilityCertificate
+        private readonly Age $age,
+        private readonly ?IdentificationCertificate $identificationCertificate,
+        private readonly ?CitizenMemberCertificate $citizenMemberCertificate,
+        private readonly ?StudentCertificate $studentCertificate,
+        private readonly ?DisabilityCertificate $disabilityCertificate,
     ) {
-        $this->age = $age;
-        $this->identificationCertificate = $identificationCertificate;
-        $this->citizenMemberCertificate = $citizenMemberCertificate;
-        $this->studentCertificate = $studentCertificate;
-        $this->disabilityCertificate = $disabilityCertificate;
     }
 
     public function age(): Age
