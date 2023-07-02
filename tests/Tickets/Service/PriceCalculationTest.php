@@ -8,12 +8,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 use TicketPriceModeling\Customers\Age;
-use TicketPriceModeling\Customers\Certificate\CitizenMemberCertificate;
-use TicketPriceModeling\Customers\Certificate\HighSchoolStudentCertificate;
-use TicketPriceModeling\Customers\Certificate\IdentificationCertificate;
-use TicketPriceModeling\Customers\Certificate\MiddleSchoolStudentCetficate;
-use TicketPriceModeling\Customers\Certificate\ProfessionalStudentCertificate;
-use TicketPriceModeling\Customers\Certificate\UniversityStudentCertificate;
+use TicketPriceModeling\Customers\Certificate;
 use TicketPriceModeling\Customers\Customer;
 use TicketPriceModeling\Schedules\PlayStartDateTime;
 use TicketPriceModeling\Tickets\Service\PriceCalculation as Sut;
@@ -37,53 +32,53 @@ class PriceCalculationTest extends TestCase
         return [
             'シネマシティズン、平日通常時間上映' => [
                 self::factoryPlayStartWeekdayNotLateShow(),
-                self::factoryCustomerCitizenMember(),
+                self::factoryCustomerCinemaCitizenMember(),
                 1000,
             ],
             'シネマシティズン、平日レイト上映' => [
                 self::factoryPlayStartWeekdayLateShow(),
-                self::factoryCustomerCitizenMember(),
+                self::factoryCustomerCinemaCitizenMember(),
                 1000,
             ],
             'シネマシティズン、休日通常時間上映' => [
                 self::factoryPlayStartHolidayNotLateShow(),
-                self::factoryCustomerCitizenMember(),
+                self::factoryCustomerCinemaCitizenMember(),
                 1300,
             ],
             'シネマシティズン、休日レイト上映' => [
                 self::factoryPlayStartHolidayLateShow(),
-                self::factoryCustomerCitizenMember(),
+                self::factoryCustomerCinemaCitizenMember(),
                 1000,
             ],
             'シネマシティズン、映画の日上映' => [
                 self::factoryPlayStartCinemaAnniversary(),
-                self::factoryCustomerCitizenMember(),
+                self::factoryCustomerCinemaCitizenMember(),
                 1100,
             ],
 
             'シネマシティズン（60才以上）、平日通常時間上映' => [
                 self::factoryPlayStartWeekdayNotLateShow(),
-                self::factoryCustomerCitizenMemberSenior(),
+                self::factoryCustomerCinemaCitizenMemberSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、平日レイト上映' => [
                 self::factoryPlayStartWeekdayLateShow(),
-                self::factoryCustomerCitizenMemberSenior(),
+                self::factoryCustomerCinemaCitizenMemberSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、休日通常時間上映' => [
                 self::factoryPlayStartHolidayNotLateShow(),
-                self::factoryCustomerCitizenMemberSenior(),
+                self::factoryCustomerCinemaCitizenMemberSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、休日レイト上映' => [
                 self::factoryPlayStartHolidayLateShow(),
-                self::factoryCustomerCitizenMemberSenior(),
+                self::factoryCustomerCinemaCitizenMemberSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、映画の日上映' => [
                 self::factoryPlayStartCinemaAnniversary(),
-                self::factoryCustomerCitizenMemberSenior(),
+                self::factoryCustomerCinemaCitizenMemberSenior(),
                 1000,
             ],
 
@@ -271,6 +266,22 @@ class PriceCalculationTest extends TestCase
         ];
     }
 
+    #[Test]
+    public function チケット料金は顧客の状況から最も安い料金になる(): void {
+        // Arrange
+        $customer = new Customer(new Age(16), [
+            Certificate::MiddleSchoolStudent,
+            Certificate::Disability,
+        ]);
+        $playStartDateTime = $this->factoryPlayStartWeekdayNotLateShow();
+
+        // Act
+        $price = Sut::caluculation($playStartDateTime, $customer);
+
+        // Assert
+        $this->assertSame(900, $price->value());
+    }
+
     private static function factoryPlayStartWeekdayNotLateShow(): PlayStartDateTime
     {
         return new PlayStartDateTime('2023-07-03 10:00:00');
@@ -296,48 +307,48 @@ class PriceCalculationTest extends TestCase
         return new PlayStartDateTime('2023-07-01 20:00:00');
     }
 
-    private static function factoryCustomerCitizenMember(): Customer
+    private static function factoryCustomerCinemaCitizenMember(): Customer
     {
-        return new Customer(new Age(20), null, new CitizenMemberCertificate(), null, null);
+        return new Customer(new Age(20), [Certificate::CinemaCitizenMember]);
     }
 
-    private static function factoryCustomerCitizenMemberSenior(): Customer
+    private static function factoryCustomerCinemaCitizenMemberSenior(): Customer
     {
-        return new Customer(new Age(60), null, new CitizenMemberCertificate(), null, null);
+        return new Customer(new Age(60), [Certificate::CinemaCitizenMember]);
     }
 
     private static function factoryCustomerGeneral(): Customer
     {
-        return new Customer(new Age(20), null, null, null, null);
+        return new Customer(new Age(20));
     }
 
     private static function factoryCustomerSenior(): Customer
     {
-        return new Customer(new Age(70), new IdentificationCertificate(), null, null, null);
+        return new Customer(new Age(70), [Certificate::Identification]);
     }
 
     private static function factoryCustomerUniversityStudent(): Customer
     {
-        return new Customer(new Age(20), null, null, new UniversityStudentCertificate(), null);
+        return new Customer(new Age(20), [Certificate::UniversityStudent]);
     }
 
     private static function factoryCustomerProfessionalStudent(): Customer
     {
-        return new Customer(new Age(20), null, null, new ProfessionalStudentCertificate(), null);
+        return new Customer(new Age(19), [Certificate::ProfessionalStudent]);
     }
 
     private static function factoryCustomerHighSchoolStudent(): Customer
     {
-        return new Customer(new Age(20), null, null, new HighSchoolStudentCertificate(), null);
+        return new Customer(new Age(16), [Certificate::HighSchoolStudent]);
     }
 
     private static function factoryCustomerMiddleSchoolStudent(): Customer
     {
-        return new Customer(new Age(20), null, null, new MiddleSchoolStudentCetficate(), null);
+        return new Customer(new Age(13), [Certificate::MiddleSchoolStudent]);
     }
 
     private static function factoryCustomerChild(): Customer
     {
-        return new Customer(new Age(5), null, null, null, null);
+        return new Customer(new Age(5));
     }
 }

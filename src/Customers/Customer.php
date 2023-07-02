@@ -5,19 +5,16 @@ declare(strict_types=1);
 namespace TicketPriceModeling\Customers;
 
 use TicketPriceModeling\Customers\Age;
-use TicketPriceModeling\Customers\Certificate\CitizenMemberCertificate;
-use TicketPriceModeling\Customers\Certificate\DisabilityCertificate;
-use TicketPriceModeling\Customers\Certificate\IdentificationCertificate;
-use TicketPriceModeling\Customers\Certificate\StudentCertificate;
+use TicketPriceModeling\Customers\Certificate;
 
 class Customer
 {
+    /**
+     * @param ?Certificate[] $certificates
+     */
     public function __construct(
         private readonly Age $age,
-        private readonly ?IdentificationCertificate $identificationCertificate,
-        private readonly ?CitizenMemberCertificate $citizenMemberCertificate,
-        private readonly ?StudentCertificate $studentCertificate,
-        private readonly ?DisabilityCertificate $disabilityCertificate,
+        private readonly ?array $certificates = []
     ) {
     }
 
@@ -26,23 +23,8 @@ class Customer
         return $this->age;
     }
 
-    public function identificationCertificate(): ?IdentificationCertificate
+    public function hasCertificate(Certificate $certificate): bool
     {
-        return $this->identificationCertificate;
-    }
-
-    public function citizenMemberCertificate(): ?CitizenMemberCertificate
-    {
-        return $this->citizenMemberCertificate;
-    }
-
-    public function studentCertificate(): ?StudentCertificate
-    {
-        return $this->studentCertificate;
-    }
-
-    public function disabilityCertificate(): ?DisabilityCertificate
-    {
-        return $this->disabilityCertificate;
+        return in_array($certificate, $this->certificates, true);
     }
 }

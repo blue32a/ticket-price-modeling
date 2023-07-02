@@ -6,39 +6,42 @@ namespace Tests\Customers\Types\Specifications;
 
 use PHPUnit\Framework\TestCase;
 use TicketPriceModeling\Customers\Age;
+use TicketPriceModeling\Customers\Certificate;
 use TicketPriceModeling\Customers\Customer;
-use TicketPriceModeling\Customers\Certificate\CitizenMemberCertificate;
 use TicketPriceModeling\Customers\Types\Specifications\CitizenMemberSpecification;
 
 class CitizenMemberSpecificationTest extends TestCase
 {
-    private CitizenMemberSpecification $specification;
-
-    private function customerFacotry(?CitizenMemberCertificate $citizenMember): Customer
-    {
-        return new Customer(new Age(32), null, $citizenMember, null, null);
-    }
-
-    public function setUp(): void
-    {
-        $this->specification = new CitizenMemberSpecification();
+    /**
+     * @param Certificate[] $certificates
+     */
+    private function customerFacotry(array $certificates): Customer {
+        return new Customer(new Age(32), $certificates);
     }
 
     /**
      * @test
      */
-    public function 顧客がシネマシティズン会員証明書を持っていればtrue(): void
+    public function 顧客がシネマシティズン会員証を持っていればtrueを返す(): void
     {
-        $customer = $this->customerFacotry(new CitizenMemberCertificate());
-        $this->assertTrue($this->specification->isSatisfiedBy($customer));
+        // Arrange
+        $sut = new CitizenMemberSpecification();
+        $customer = $this->customerFacotry([Certificate::CinemaCitizenMember]);
+
+        // Act & Assert
+        $this->assertTrue($sut->isSatisfiedBy($customer));
     }
 
     /**
      * @test
      */
-    public function 顧客がシネマシティズン会員証明書を持っていなければfalse(): void
+    public function 顧客がシネマシティズン会員証を持っていなければfalseを返す(): void
     {
-        $customer = $this->customerFacotry(null);
-        $this->assertFalse($this->specification->isSatisfiedBy($customer));
+        // Arrange
+        $sut = new CitizenMemberSpecification();
+        $customer = $this->customerFacotry([]);
+
+        // Act & Assert
+        $this->assertFalse($sut->isSatisfiedBy($customer));
     }
 }

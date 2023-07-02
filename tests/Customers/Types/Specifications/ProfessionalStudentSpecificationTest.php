@@ -6,24 +6,18 @@ namespace Tests\Customers\Types\Specifications;
 
 use PHPUnit\Framework\TestCase;
 use TicketPriceModeling\Customers\Age;
+use TicketPriceModeling\Customers\Certificate;
 use TicketPriceModeling\Customers\Customer;
-use TicketPriceModeling\Customers\Certificate\ProfessionalStudentCertificate;
-use TicketPriceModeling\Customers\Certificate\StudentCertificate;
-use TicketPriceModeling\Customers\Certificate\UniversityStudentCertificate;
 use TicketPriceModeling\Customers\Types\Specifications\ProfessionalStudentSpecification;
 
 class ProfessionalStudentSpecificationTest extends TestCase
 {
-    private ProfessionalStudentSpecification $specification;
-
-    private function customerFacotry(?StudentCertificate $studentCertificate): Customer
+    /**
+     * @param Certificate[] $certificates
+     */
+    private function customerFacotry(array $certificates): Customer
     {
-        return new Customer(new Age(13), null, null, $studentCertificate, null);
-    }
-
-    public function setUp(): void
-    {
-        $this->specification = new ProfessionalStudentSpecification();
+        return new Customer(new Age(13), $certificates);
     }
 
     /**
@@ -31,25 +25,24 @@ class ProfessionalStudentSpecificationTest extends TestCase
      */
     public function 顧客が専門学校の学生証明書を持っていたらtrueを返す(): void
     {
-        $customer = $this->customerFacotry(new ProfessionalStudentCertificate());
-        $this->assertTrue($this->specification->isSatisfiedBy($customer));
+        // Arrange
+        $sut = new ProfessionalStudentSpecification();
+        $customer = $this->customerFacotry([Certificate::ProfessionalStudent]);
+
+        // Act & Assert
+        $this->assertTrue($sut->isSatisfiedBy($customer));
     }
 
     /**
      * @test
      */
-    public function 顧客が専門学校以外の学生証明書を持っていたらfalseを返す(): void
+    public function 顧客が専門学校の学生証明書を持っていなければfalseを返す(): void
     {
-        $customer = $this->customerFacotry(new UniversityStudentCertificate());
-        $this->assertFalse($this->specification->isSatisfiedBy($customer));
-    }
+        // Arrange
+        $sut = new ProfessionalStudentSpecification();
+        $customer = $this->customerFacotry([]);
 
-    /**
-     * @test
-     */
-    public function 顧客が学生証明書を持っていなければfalseを返す(): void
-    {
-        $customer = $this->customerFacotry(null);
-        $this->assertFalse($this->specification->isSatisfiedBy($customer));
+        // Act & Assert
+        $this->assertFalse($sut->isSatisfiedBy($customer));
     }
 }
