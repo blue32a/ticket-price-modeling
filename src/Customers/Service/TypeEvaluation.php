@@ -6,8 +6,8 @@ namespace TicketPriceModeling\Customers\Service;
 
 use TicketPriceModeling\Customers\Customer;
 use TicketPriceModeling\Customers\Types\Child;
-use TicketPriceModeling\Customers\Types\CitizenMember;
-use TicketPriceModeling\Customers\Types\CitizenMemberSenior;
+use TicketPriceModeling\Customers\Types\CinemaCitizen;
+use TicketPriceModeling\Customers\Types\CinemaCitizenSenior;
 use TicketPriceModeling\Customers\Types\Disability;
 use TicketPriceModeling\Customers\Types\General;
 use TicketPriceModeling\Customers\Types\HighSchoolStudent;
@@ -15,8 +15,8 @@ use TicketPriceModeling\Customers\Types\MiddleSchoolStudent;
 use TicketPriceModeling\Customers\Types\ProfessionalStudent;
 use TicketPriceModeling\Customers\Types\Senior;
 use TicketPriceModeling\Customers\Types\Specifications\ChildSpecification;
-use TicketPriceModeling\Customers\Types\Specifications\CitizenMemberSeniorSpecification;
-use TicketPriceModeling\Customers\Types\Specifications\CitizenMemberSpecification;
+use TicketPriceModeling\Customers\Types\Specifications\CinemaCitizenSeniorSpecification;
+use TicketPriceModeling\Customers\Types\Specifications\CinemaCitizenSpecification;
 use TicketPriceModeling\Customers\Types\Specifications\DisabilitySpecification;
 use TicketPriceModeling\Customers\Types\Specifications\GeneralSpecification;
 use TicketPriceModeling\Customers\Types\Specifications\HighSchoolStudentSpecification;
@@ -35,11 +35,11 @@ class TypeEvaluation
         if ((new ChildSpecification())->isSatisfiedBy($customer)) {
             $types[] = new Child();
         }
-        if ((new CitizenMemberSpecification())->isSatisfiedBy($customer)) {
-            $types[] = new CitizenMember();
+        if ((new CinemaCitizenSpecification())->isSatisfiedBy($customer)) {
+            $types[] = new CinemaCitizen();
         }
-        if ((new CitizenMemberSeniorSpecification())->isSatisfiedBy($customer)) {
-            $types[] = new CitizenMemberSenior();
+        if ((new CinemaCitizenSeniorSpecification())->isSatisfiedBy($customer)) {
+            $types[] = new CinemaCitizenSenior();
         }
         if ((new DisabilitySpecification())->isSatisfiedBy($customer)) {
             $types[] = new Disability();

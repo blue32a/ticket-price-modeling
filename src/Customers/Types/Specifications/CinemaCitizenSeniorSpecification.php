@@ -7,7 +7,7 @@ namespace TicketPriceModeling\Customers\Types\Specifications;
 use TicketPriceModeling\Customers\Customer;
 use TicketPriceModeling\Customers\Age;
 
-class CitizenMemberSeniorSpecification extends CitizenMemberSpecification
+class CinemaCitizenSeniorSpecification extends CinemaCitizenSpecification
 {
     public function isSatisfiedBy(Customer $customer): bool
     {

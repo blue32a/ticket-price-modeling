@@ -6,8 +6,8 @@ namespace Tests\Tickets\Prices\Policies;
 
 use PHPUnit\Framework\TestCase;
 use TicketPriceModeling\Customers\Types\Child;
-use TicketPriceModeling\Customers\Types\CitizenMember;
-use TicketPriceModeling\Customers\Types\CitizenMemberSenior;
+use TicketPriceModeling\Customers\Types\CinemaCitizen;
+use TicketPriceModeling\Customers\Types\CinemaCitizenSenior;
 use TicketPriceModeling\Customers\Types\Disability;
 use TicketPriceModeling\Customers\Types\General;
 use TicketPriceModeling\Customers\Types\HighSchoolStudent;
@@ -76,8 +76,8 @@ class LateShowPolicyTest extends TestCase
     public static function otherTypeDataProvider(): array
     {
         return [
-            [new CitizenMember(), 'シネマシティズン会員'],
-            [new CitizenMemberSenior(), 'シネマシティズン会員シニア'],
+            [new CinemaCitizen(), 'シネマシティズン'],
+            [new CinemaCitizenSenior(), 'シネマシティズンシニア'],
             [new HighSchoolStudent(), '高校生'],
             [new MiddleSchoolStudent(), '中学生'],
             [new Child(), '小人'],

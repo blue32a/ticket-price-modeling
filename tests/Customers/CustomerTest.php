@@ -37,10 +37,10 @@ class CustomerTest extends TestCase
     public function hasCertificateメソッドは指定の証明書を持っている場合にtrueを返す(): void
     {
         // Arrange
-        $sut = $this->customerFacotry(null, [Certificate::CinemaCitizenMember]);
+        $sut = $this->customerFacotry(null, [Certificate::CinemaCitizen]);
 
         // Act & Assert
-        $this->assertTrue($sut->hasCertificate(Certificate::CinemaCitizenMember));
+        $this->assertTrue($sut->hasCertificate(Certificate::CinemaCitizen));
     }
 
     #[Test]
@@ -50,6 +50,6 @@ class CustomerTest extends TestCase
         $sut = $this->customerFacotry(null, [Certificate::Identification]);
 
         // Act & Assert
-        $this->assertFalse($sut->hasCertificate(Certificate::CinemaCitizenMember));
+        $this->assertFalse($sut->hasCertificate(Certificate::CinemaCitizen));
     }
 }

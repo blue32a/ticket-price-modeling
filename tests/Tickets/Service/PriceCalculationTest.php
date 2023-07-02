@@ -33,53 +33,53 @@ class PriceCalculationTest extends TestCase
         return [
             'シネマシティズン、平日通常時間上映' => [
                 self::factoryPlayStartWeekdayNotLateShow(),
-                self::factoryCustomerCinemaCitizenMember(),
+                self::factoryCustomerCinemaCinemaCitizen(),
                 1000,
             ],
             'シネマシティズン、平日レイト上映' => [
                 self::factoryPlayStartWeekdayLateShow(),
-                self::factoryCustomerCinemaCitizenMember(),
+                self::factoryCustomerCinemaCinemaCitizen(),
                 1000,
             ],
             'シネマシティズン、休日通常時間上映' => [
                 self::factoryPlayStartHolidayNotLateShow(),
-                self::factoryCustomerCinemaCitizenMember(),
+                self::factoryCustomerCinemaCinemaCitizen(),
                 1300,
             ],
             'シネマシティズン、休日レイト上映' => [
                 self::factoryPlayStartHolidayLateShow(),
-                self::factoryCustomerCinemaCitizenMember(),
+                self::factoryCustomerCinemaCinemaCitizen(),
                 1000,
             ],
             'シネマシティズン、映画の日上映' => [
                 self::factoryPlayStartCinemaAnniversary(),
-                self::factoryCustomerCinemaCitizenMember(),
+                self::factoryCustomerCinemaCinemaCitizen(),
                 1100,
             ],
 
             'シネマシティズン（60才以上）、平日通常時間上映' => [
                 self::factoryPlayStartWeekdayNotLateShow(),
-                self::factoryCustomerCinemaCitizenMemberSenior(),
+                self::factoryCustomerCinemaCinemaCitizenSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、平日レイト上映' => [
                 self::factoryPlayStartWeekdayLateShow(),
-                self::factoryCustomerCinemaCitizenMemberSenior(),
+                self::factoryCustomerCinemaCinemaCitizenSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、休日通常時間上映' => [
                 self::factoryPlayStartHolidayNotLateShow(),
-                self::factoryCustomerCinemaCitizenMemberSenior(),
+                self::factoryCustomerCinemaCinemaCitizenSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、休日レイト上映' => [
                 self::factoryPlayStartHolidayLateShow(),
-                self::factoryCustomerCinemaCitizenMemberSenior(),
+                self::factoryCustomerCinemaCinemaCitizenSenior(),
                 1000,
             ],
             'シネマシティズン（60才以上）、映画の日上映' => [
                 self::factoryPlayStartCinemaAnniversary(),
-                self::factoryCustomerCinemaCitizenMemberSenior(),
+                self::factoryCustomerCinemaCinemaCitizenSenior(),
                 1000,
             ],
 
@@ -308,14 +308,14 @@ class PriceCalculationTest extends TestCase
         return new PlayStartDateTime(new DateTimeImmutable('2023-07-01 20:00:00'));
     }
 
-    private static function factoryCustomerCinemaCitizenMember(): Customer
+    private static function factoryCustomerCinemaCinemaCitizen(): Customer
     {
-        return new Customer(new Age(20), [Certificate::CinemaCitizenMember]);
+        return new Customer(new Age(20), [Certificate::CinemaCitizen]);
     }
 
-    private static function factoryCustomerCinemaCitizenMemberSenior(): Customer
+    private static function factoryCustomerCinemaCinemaCitizenSenior(): Customer
     {
-        return new Customer(new Age(60), [Certificate::CinemaCitizenMember]);
+        return new Customer(new Age(60), [Certificate::CinemaCitizen]);
     }
 
     private static function factoryCustomerGeneral(): Customer

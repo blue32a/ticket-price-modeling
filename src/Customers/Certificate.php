@@ -7,7 +7,7 @@ namespace TicketPriceModeling\Customers;
 enum Certificate
 {
     case Identification;
-    case CinemaCitizenMember;
+    case CinemaCitizen;
     case Disability;
     case UniversityStudent;
     case ProfessionalStudent;

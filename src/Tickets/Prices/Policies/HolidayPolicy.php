@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TicketPriceModeling\Tickets\Prices\Policies;
 
-use TicketPriceModeling\Customers\Types\CitizenMember;
+use TicketPriceModeling\Customers\Types\CinemaCitizen;
 use TicketPriceModeling\Customers\Types\Disability;
 use TicketPriceModeling\Customers\Types\General;
 use TicketPriceModeling\Customers\Types\ProfessionalStudent;
@@ -24,7 +24,7 @@ class HolidayPolicy extends Policy
             || $type instanceof ProfessionalStudent
         ) {
             return new Price(1500);
-        } else if ($type instanceof CitizenMember) {
+        } else if ($type instanceof CinemaCitizen) {
             return new Price(1300);
         } else if ($type instanceof Senior) {
             return new Price(1100);

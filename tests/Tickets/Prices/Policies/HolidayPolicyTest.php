@@ -6,8 +6,8 @@ namespace Tests\Tickets\Prices\Policies;
 
 use PHPUnit\Framework\TestCase;
 use TicketPriceModeling\Customers\Types\Child;
-use TicketPriceModeling\Customers\Types\CitizenMember;
-use TicketPriceModeling\Customers\Types\CitizenMemberSenior;
+use TicketPriceModeling\Customers\Types\CinemaCitizen;
+use TicketPriceModeling\Customers\Types\CinemaCitizenSenior;
 use TicketPriceModeling\Customers\Types\Disability;
 use TicketPriceModeling\Customers\Types\General;
 use TicketPriceModeling\Customers\Types\HighSchoolStudent;
@@ -58,9 +58,9 @@ class HolidayPolicyTest extends TestCase
     /**
      * @test
      */
-    public function 顧客区分がシネマシティズン会員の場合はチケット料金1300円が返る(): void
+    public function 顧客区分がシネマシティズンの場合はチケット料金1300円が返る(): void
     {
-        $price = $this->policy->price(new CitizenMember());
+        $price = $this->policy->price(new CinemaCitizen());
         $this->assertTrue((new Price(1300))->equals($price));
     }
 
@@ -85,7 +85,7 @@ class HolidayPolicyTest extends TestCase
     public static function otherTypeDataProvider(): array
     {
         return [
-            [new CitizenMemberSenior(), 'シネマシティズン会員シニア'],
+            [new CinemaCitizenSenior(), 'シネマシティズンシニア'],
             [new HighSchoolStudent(), '高校生'],
             [new MiddleSchoolStudent(), '中学生'],
             [new Child(), '小人'],

@@ -8,9 +8,9 @@ use PHPUnit\Framework\TestCase;
 use TicketPriceModeling\Customers\Age;
 use TicketPriceModeling\Customers\Certificate;
 use TicketPriceModeling\Customers\Customer;
-use TicketPriceModeling\Customers\Types\Specifications\CitizenMemberSpecification;
+use TicketPriceModeling\Customers\Types\Specifications\CinemaCitizenSpecification;
 
-class CitizenMemberSpecificationTest extends TestCase
+class CinemaCitizenSpecificationTest extends TestCase
 {
     /**
      * @param Certificate[] $certificates
@@ -22,11 +22,11 @@ class CitizenMemberSpecificationTest extends TestCase
     /**
      * @test
      */
-    public function 顧客がシネマシティズン会員証を持っていればtrueを返す(): void
+    public function 顧客がシネマシティズン証明書を持っていればtrueを返す(): void
     {
         // Arrange
-        $sut = new CitizenMemberSpecification();
-        $customer = $this->customerFacotry([Certificate::CinemaCitizenMember]);
+        $sut = new CinemaCitizenSpecification();
+        $customer = $this->customerFacotry([Certificate::CinemaCitizen]);
 
         // Act & Assert
         $this->assertTrue($sut->isSatisfiedBy($customer));
@@ -35,10 +35,10 @@ class CitizenMemberSpecificationTest extends TestCase
     /**
      * @test
      */
-    public function 顧客がシネマシティズン会員証を持っていなければfalseを返す(): void
+    public function 顧客がシネマシティズン証明書を持っていなければfalseを返す(): void
     {
         // Arrange
-        $sut = new CitizenMemberSpecification();
+        $sut = new CinemaCitizenSpecification();
         $customer = $this->customerFacotry([]);
 
         // Act & Assert

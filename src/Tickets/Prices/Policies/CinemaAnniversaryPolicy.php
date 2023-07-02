@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace TicketPriceModeling\Tickets\Prices\Policies;
 
-use TicketPriceModeling\Customers\Types\CitizenMember;
+use TicketPriceModeling\Customers\Types\CinemaCitizen;
 use TicketPriceModeling\Customers\Types\Disability;
 use TicketPriceModeling\Customers\Types\General;
 use TicketPriceModeling\Customers\Types\ProfessionalStudent;
@@ -18,7 +18,7 @@ class CinemaAnniversaryPolicy extends Policy
     public function price(Type $type): Price
     {
         if (
-            $type instanceof CitizenMember
+            $type instanceof CinemaCitizen
             || $type instanceof General
             || $type instanceof UniversityStudent
             || $type instanceof ProfessionalStudent
