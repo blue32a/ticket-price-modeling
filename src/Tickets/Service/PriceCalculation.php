@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace TicketPriceModeling\Tickets\Service;
 
 use TicketPriceModeling\Customers\Customer;
-use TicketPriceModeling\Customers\Service\TypeEvaluation;
 use TicketPriceModeling\Schedules\PlayStartDateTime;
 use TicketPriceModeling\Tickets\Prices\Policies\CinemaAnniversaryPolicy;
 use TicketPriceModeling\Tickets\Prices\Policies\HolidayPolicy;
@@ -20,7 +19,7 @@ class PriceCalculation
     {
         $policy = self::policy($playStartDateTime);
 
-        $types = TypeEvaluation::evaluation($customer);
+        $types = $customer->types();
         $prices = [];
 
         foreach($types as $type) {

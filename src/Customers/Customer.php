@@ -6,6 +6,7 @@ namespace TicketPriceModeling\Customers;
 
 use TicketPriceModeling\Customers\Age;
 use TicketPriceModeling\Customers\Certificate;
+use TicketPriceModeling\Customers\Types\TypeEvaluation;
 
 class Customer
 {
@@ -26,5 +27,10 @@ class Customer
     public function hasCertificate(Certificate $certificate): bool
     {
         return in_array($certificate, $this->certificates, true);
+    }
+
+    public function types(): array
+    {
+        return TypeEvaluation::evaluate($this);
     }
 }
